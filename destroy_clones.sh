@@ -5,7 +5,7 @@ name=${domen}"-clone"
 for x in $(virsh list --all --name);
 do
 if grep -q "$name" <<< $x ; then
-virsh destroy $x;
-virsh undefine $x --remove-all-storage;
+virsh -t destroy $x;
+virsh -t undefine $x --remove-all-storage;
 fi
 done

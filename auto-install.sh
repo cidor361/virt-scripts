@@ -4,6 +4,8 @@ image="$1" # centos, fedora, debian, ubuntu
 name="$2"
 silent="$3"
 bridge="virbr0"
+#sourse_net="eth0"
+sourse_net="wlan0"
 bridgeip4="192.168.122.1"
 country="ru"
 url_ubuntu_mirror="http://${country}.archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/"
@@ -22,7 +24,8 @@ fedora_mirror=$url_fedora_mirror
 centos8_mirror=$url_centos8_mirror
 autoconsole=""
 #autoconsole="--noautoconsole"
-url_configuration="http://${bridgeip4}/conf/${image}-${name}.cfg"
+#url_configuration="http://${bridgeip4}/conf/${image}-${name}.cfg"
+url_configuration="http://moodle.cybercidor.info/extra/preseed.cfg"
 
 usage () {
 echo "Usage : $0 [ centos | centos8 | fedora | debian | ubuntu ] vm_name"
@@ -75,7 +78,7 @@ virt-install \
 --ram=$ram \
 --vcpus=1 \
 --os-variant=$os \
---network bridge=$bridge \
+--network type=direct,source=$sourse_net,source_mode=bridge,model=rtl8139 \
 --graphics none \
 --noreboot \
 --console pty,target_type=serial \
